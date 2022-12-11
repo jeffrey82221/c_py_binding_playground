@@ -15,6 +15,14 @@ python -m nuitka main.py --lto=no \
 rm -r main.build
 ```
 
+```
+python -m nuitka main_sum.py --lto=no \
+    --nofollow-import-to=pytest --python-flag=nosite,-O --prefer-source-code \
+    --clang --plugin-enable=anti-bloat,implicit-imports,data-files,pylint-warnings
+
+rm -r main.build
+```
+
 ### run:
 ```
 ./main.bin
@@ -39,6 +47,12 @@ python -m nuitka main.py --standalone --lto=no \
 python -m nuitka add.py --module --lto=no \
     --nofollow-import-to=pytest --python-flag=nosite,-O --prefer-source-code \
     --clang --plugin-enable=anti-bloat,implicit-imports,data-files,pylint-warnings
+```
+```
+python -m nuitka sum.py --module --lto=no \
+    --nofollow-import-to=pytest --python-flag=nosite,-O --prefer-source-code \
+    --clang --plugin-enable=anti-bloat,implicit-imports,data-files,pylint-warnings
+
 ```
 ### import 
 ```
