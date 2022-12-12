@@ -30,7 +30,9 @@ def pypy(func):
 def add_one_func(x):
     return x + 1
 
-result = []
-for x in range(10000):
-    result.append(add_one_func(x))
+if __name__ == '__main__':
+    result = []
+    for x in range(10000):
+        result.append(add_one_func(x))
+    print(result[:100])
 

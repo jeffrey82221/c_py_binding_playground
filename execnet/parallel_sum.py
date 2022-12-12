@@ -1,4 +1,4 @@
-PARALLEL_CNT = 1
+PARALLEL_CNT = 1000
 def batchwise_generator(gen, batch_size=100):
     batch = []
     for i, element in enumerate(gen):
@@ -18,5 +18,7 @@ def batch_sum(inputs):
 
 def sum(input_array):
     batch_pipe = batchwise_generator(input_array, batch_size=len(input_array)/PARALLEL_CNT)
-    sum_pipe = map(batch_sum, batch_pipe)
-    return batch_sum(sum_pipe)
+    sum_result = 0
+    for batch in batch_pipe:
+        sum_result += batch_sum(batch)
+    return sum_result
