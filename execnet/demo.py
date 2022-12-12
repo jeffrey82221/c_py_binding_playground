@@ -1,16 +1,20 @@
 import execnet
 gw = execnet.makegateway("popen//pypy")
 channel = gw.remote_exec("""
-array = []
+def add_one(x):
+    return x + 1
+
 while 1:
     x = channel.receive()
     if x is None:
         break
-    array.append(x)
-channel.send(repr(array))
+    channel.send(repr(add_one(x)))
 """)
+
+def add_one(x):
+    channel.send(x)
+    return eval(channel.receive())
+result = []
 for x in range(10):
-    channel.send([x])
-channel.send(None)
-ans = eval(channel.receive())
-print(ans)
+    result.append(add_one(x))
+print(result)
